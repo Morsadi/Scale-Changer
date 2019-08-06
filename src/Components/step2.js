@@ -11,86 +11,91 @@ class Step2 extends Component{
     this.state= {
 
       musicalNotes : musicalNotes,
-      chord : '',
-      targetChord: '',
-      selectValue: ''
+      chords : this.props.chords,
+    progression: 2,
+        keys: []
       }
 
 
   }
 
  
-eventHandler(e){
-    this.setState({selectValue:e.target.value});
-  }
-  getNotes(){
-//     const allNotes = this.state.musicalNotes;
+componentDidMount(){
+    let chords = this.state.chords;
+    let musicalNotes = this.state.musicalNotes;
+    let originalChords = [];
+    let result =[]
+  
+
+    function fetch(count){
+
+
    
-//   const firstChord = this.state.chord1;
-//   const target = this.state.targetChord;
-//   let key1;
-//   let key2;
-//   let targetChord;
-//   let count;
-  
-  
-//   //first chord
-//   for(let i in allNotes){
-//   if (firstChord === allNotes[i].chord){
-//     const key = allNotes[i].key
-//     key1= key;
-  
-//     break;
-//   } 
-//   }
+    //nested looping
+  for(let i = 0; i < chords.length; i++){
+      //loop through original chords
+    let currentChord = chords[i];
+
+    //while at i chord, loop through musical notes. When it matches the chord
+    for (let j = 0; i < musicalNotes.length;j++){
+        let currentMusicalNote = musicalNotes[j]
+
+        if (currentMusicalNote){
+
+            if (currentChord === currentMusicalNote.chord){
+                let newChordIndex = currentMusicalNote.key +count;
+
+                    if (newChordIndex > 6.50 ){
+                        newChordIndex -= 6;
+                        originalChords.push(newChordIndex )
+                    }else {
+                        originalChords.push(newChordIndex )
+                    }
+                 
+
+         break;
+                 }
+
+        }
+
+    }//j
+
+  } //i
+//   console.log(originalChords)
+
+
+for (let i in originalChords){
+   
+    if (originalChords){
+        let currentNum = originalChords[i];
+        for (let j in musicalNotes){
+            if (currentNum === musicalNotes[j].key){
+                result.push(musicalNotes[j].chord)
+            }
+        }
+    }
+}
  
-//   //target chord
-//   for(let i = 0; i <= allNotes.length; i++){
-//     if(target === allNotes[i].chord){
-//       const key = allNotes[i].key
-//     targetChord= key;
-    
-    
-  
-//       break;
-//     }
-//   }
-  
-  
-//   //finding the count between the chords
-//     count= targetChord - key1
-//   let newChord = key2 + count; 
-//   //find chords
-//     for(let i in allNotes){
-//       if(newChord === allNotes[i].key){
-//         const chord = allNotes[i].chord
-//         newChord= chord;
-//         break;
-//       }
-//     }
-  
-  }
+   
+
+  console.log(result)
+
+}
+
+fetch(2)
 
 
+  }//DidMount
 
-
+ 
 
   render(){
+   
     return (
   <div>
 
-
-<select value={this.state.selectValue} onChange={this.eventHandler.bind(this)} className="select-css">
-	<option className="chords" id="1">C</option>
-	<option className="chords" id="2">D</option>
-	<option className="chords" id="3">E</option>
-	<option className="chords" id="4">F</option>
-	<option className="chords" id="5">G</option>
-  <option className="chords" id="6">A</option>
-  <option className="chords" id="7">B</option>
-</select>
-
-
+<h1>{this.state.keys}
+</h1>
   </div>
         )
     }
