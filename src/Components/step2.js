@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import musicalNotes from '../musicalNote'
 
-class Chord extends Component{
+class Step2 extends Component{
 
 
 
@@ -98,5 +98,5 @@ eventHandler(e){
     
     
     
-    export default Chord;
+    export default Step2;
       

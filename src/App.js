@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import musicalNotes from './musicalNote';
-import Chord from './Chord/chord';
-import Dropdown from 'react-bootstrap/Dropdown';
-
+import Step2 from './Components/step2';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 
 
@@ -12,13 +11,16 @@ class App extends Component{
 
   constructor(props){
     super(props)
-
+    
     this.state= {
-
-      musicalNotes : musicalNotes,
+    
+    musicalNotes : musicalNotes,
       chords : [],
       chordCount:[],
       targetChord: '',
+      displayStep1: 1,
+      displayStep2: 'none',
+      pull: 'translatex(0px)'
       }
 
 
@@ -44,7 +46,10 @@ for (let i = 0; i < chords.length; i++){
   
 }
 
-
+this.setState({
+  displayStep1:0,
+  pull: 'translatex(40px)'
+})
 }
 //add a chord dropdown
 addChord(){
@@ -63,25 +68,61 @@ render(){
 
     <div className="App">
 
+ <ReactCSSTransitionGroup
+          transitionName="fade"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+    <div style={{opacity: this.state.displayStep1, transform: this.state.pull}} className='step1'>
 
-    
+    <h2>Select the main chords<br />that you want to change<br />
+the scale of.</h2>
+      <div className='chordBox'>
+    <select className="select-css">
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        <option>G</option>
+        <option>A</option>
+        <option>B</option>
+      </select>
+      <select className="select-css">
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        <option>G</option>
+        <option>A</option>
+        <option>B</option>
+      </select>
+
+      <ReactCSSTransitionGroup
+      component={React.Fragment} //prevents from grouping the new chords in a span
+          transitionName="fade"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}> 
     {
       this.state.chordCount.map((e, index)=>
       <select key={index} className="select-css">
-	<option>C</option>
-	<option>D</option>
-	<option>E</option>
-	<option>F</option>
-	<option>G</option>
-  <option>A</option>
-  <option>B</option>
-</select>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        <option>G</option>
+        <option>A</option>
+        <option>B</option>
+      </select>
       )
     }
-   
-    <input onClick={this.addChord.bind(this)} type='button' value='+' />
+    </ReactCSSTransitionGroup>
+   </div>
+    <input className='addBtn' onClick={this.addChord.bind(this)} type='button' value='+' />
 
-    <input onClick={this.getNotes.bind(this)}  type='button' value='Transform' onClick={this.getNotes.bind(this)}/>
+    <input className='nextBtn' onClick={this.getNotes.bind(this)}  type='button' value='NEXT' onClick={this.getNotes.bind(this)}/>
+    </div>
+    
+    </ReactCSSTransitionGroup>
+
 
    </div>
   )
