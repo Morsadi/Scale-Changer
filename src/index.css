@@ -68,7 +68,7 @@ body{
   height: 500px;
   transition: all .5s ease-out;
   width: 80%;
-    margin: 0 auto;
+    margin: -50px auto;
 }
 .chordBox{
   display: flex;
@@ -126,6 +126,7 @@ transform: scale3d(1.3)
 }
 .step1 h2{
   padding: 100px 0 100px 0;
+  margin-top: 90px;
 }
 
 .fade-enter {
@@ -216,6 +217,7 @@ color: #87CABA;
   right: 60px;
   cursor: pointer;
   font-size: 40px;
+  z-index: 10;
 }
 .about:hover{
   opacity: .7;
@@ -228,9 +230,13 @@ color: #87CABA;
     font-size: 40px;
     top: 30px;
     padding-bottom: 30px;
+    opacity: .4;
 }
 .replay svg{
   transform: translateX(-50%);
+}
+.replay:hover{
+  opacity: 1;
 }
 .step2{
   transition: all .5s ease-out;
@@ -282,6 +288,14 @@ line-height: 1.7;
 .closeTab  div p{
   padding: 0 300px;
 }
+.logo{
+  position: absolute;
+  top: -40px;
+  left: 50px;
+}
+
+
+
 @media only screen and (max-width: 600px){
 .chordBox{
   width:100%;
@@ -298,5 +312,20 @@ line-height: 1.7;
   .step1 h2{
     padding: 100px 0px 20px;
     font-size: 20px;
+    margin-top: 90px;
   }
+  .logo{
+    left: 20px;
+  }
+  .about{
+    right: 40px;
+  }
+  .closeTab div h3 {
+    padding: 60px 20px;
+    font-size: 18px;
+}
+.closeTab div p {
+  padding: 0 10px;
+  font-size: 14px;
+}
 }

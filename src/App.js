@@ -3,8 +3,7 @@ import musicalNotes from './musicalNote';
 import Chord from './Components/chord';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Step2 from './Components/step2';
-import About from './Assets/about.js';
-import next from './Assets/next.js';
+import logo from './Assets/logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faMap, faCheckCircle, faInfo} from '@fortawesome/free-solid-svg-icons';
 class App extends Component{
@@ -145,7 +144,7 @@ render(){
 }
           
 
-
+  <span className='logo'>{logo[0]}</span>
   <span onClick={this.openAbout.bind(this)} className='about'><FontAwesomeIcon icon={faInfo} /></span>
 
     {this.state.display?
