@@ -2,7 +2,6 @@
   "name": "Scale-Changer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://morsadi.github.io/Scale-Changer/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.21",
     "@fortawesome/free-solid-svg-icons": "^5.10.1",
