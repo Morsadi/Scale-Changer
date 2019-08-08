@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import musicalNotes from '../musicalNote'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRedoAlt} from '@fortawesome/free-solid-svg-icons';
 class Step2 extends Component{
 
 
@@ -12,23 +13,49 @@ class Step2 extends Component{
 
       musicalNotes : musicalNotes,
       chords : this.props.chords,
-    progression: 2,
-        keys: []
+    progression: 1,
+    firstScale:[],
+    secondScale:[],
+    thirdScale:[],
+    fourthScale:[],
+    fifthScale:[],
+    sixthScale:[],
+    hovered: false,
+    opacity: 1,
+    slide: 'translatex(0px)',
+    keys: [],
+    scales: []
+
       }
 
 
   }
 
- 
-componentDidMount(){
+  componentDidMount(){
+    
+    this.setState({
+    
+        firstScale : this.fetch(this.state.progression),
+        secondScale : this.fetch(this.state.progression + 1),
+        thirdScale : this.fetch(this.state.progression + 2),
+        fourthScale : this.fetch(this.state.progression +3),
+        fifthScale:this.fetch(this.state.progression +4),
+    sixthScale:this.fetch(this.state.progression +4.50),
+  
+
+    })
+
+       
+    
+      }//DidMount
+    
+
+ fetch(count){
     let chords = this.state.chords;
     let musicalNotes = this.state.musicalNotes;
     let originalChords = [];
     let result =[]
   
-
-    function fetch(count){
-
 
    
     //nested looping
@@ -61,7 +88,6 @@ componentDidMount(){
     }//j
 
   } //i
-//   console.log(originalChords)
 
 
 for (let i in originalChords){
@@ -75,27 +101,106 @@ for (let i in originalChords){
         }
     }
 }
- 
-   
-
-  console.log(result)
-
+return(result)
 }
 
-fetch(2)
+hover(){
+    this.setState({
+        hovered: !this.state.hovered
+    })
+}
+
+unhover(){
+    this.setState({
+        hovered: !this.state.hovered
+    })
+}
+
+replayIt(){
+    
 
 
-  }//DidMount
+    this.setState({
+        keys: [],
+        opacity: 0,
+        slide: 'translatex(-40px)'
+    })
 
- 
+    setTimeout(()=>{
+        this.props.replay(true)
+    }, 1000)
+    
+}
 
   render(){
-   
-    return (
-  <div>
 
-<h1>{this.state.keys}
-</h1>
+
+return (
+  <div style={{opacity: this.state.opacity, transform: this.state.slide, minHeight: window.innerHeight}} className='step2'>
+
+
+<h2>Here are some
+scales to try</h2>
+        <div className='progressions'>
+        
+        <div className='box' >
+        
+            <h3>{this.state.firstScale[0]}</h3>
+            <div>
+               {
+                   this.state.firstScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        <div className='box' >
+            <h3>{this.state.secondScale[0]}</h3>
+            <div>
+            {
+                   this.state.secondScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        <div className='box' >
+            <h3>{this.state.thirdScale[0]}</h3>
+            <div>
+            {
+                   this.state.thirdScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        <div className='box' >
+            <h3>{this.state.fourthScale[0]}</h3>
+            <div>
+            {
+                   this.state.fourthScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        <div className='box' >
+            <h3>{this.state.fifthScale[0]}</h3>
+            <div>
+            {
+                   this.state.fifthScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        <div className='box' >
+            <h3>{this.state.sixthScale[0]}</h3>
+            <div>
+            {
+                   this.state.sixthScale.map(function(e, index) {return <div key={index}><span>{e}</span></div>})
+               }
+            </div>
+        </div>
+        
+        
+        
+        
+        </div>
+        <br/>
+<span onClick={this.replayIt.bind(this)} className='replay'><FontAwesomeIcon icon={faRedoAlt} /></span>
+
+
   </div>
         )
     }

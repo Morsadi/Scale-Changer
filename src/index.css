@@ -36,7 +36,8 @@ body{
 	display: none;
 }
 .select-css:hover {
-	border:1 solid #888;
+  border:1 solid #888;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .select-css:focus {
 
@@ -66,6 +67,8 @@ body{
   position: relative;
   height: 500px;
   transition: all .5s ease-out;
+  width: 80%;
+    margin: 0 auto;
 }
 .chordBox{
   display: flex;
@@ -77,10 +80,10 @@ body{
   text-align: center;
 }
 
-.addBtn{
+.addBtn, .removeBtn{
   background: none;
   border: 2px white;
-  color: white;
+  color: #87CABA;
   border-style: solid;
   margin: 20px 5px;
   height: 41px;
@@ -90,10 +93,14 @@ body{
   border-radius: 12px;
   transition: all .5s ease-out;
   cursor: pointer;
+  background: rgb(255, 255, 255);
+  opacity: .5;
 }
-.addBtn:hover{
+.addBtn:hover, .removeBtn:hover{
   background: rgb(255, 255, 255);
   color: #87CABA;
+  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.30);
+  opacity: 1;
 }
 .nextBtn{
   width: 200px;
@@ -118,7 +125,7 @@ cursor: pointer;
 transform: scale3d(1.3)
 }
 .step1 h2{
-  margin: 100px 0 100px 0;
+  padding: 100px 0 100px 0;
 }
 
 .fade-enter {
@@ -127,7 +134,7 @@ transform: scale3d(1.3)
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: all 500ms ease-in;
 }
 
 .fade-leave {
@@ -136,5 +143,160 @@ transform: scale3d(1.3)
 
 .fade-leave.fade-leave-active {
   opacity: 0;
-  transition: opacity 300ms ease-in;
+  transition: all 300ms ease-in;
+}
+
+.hide-enter {
+  opacity: 0;
+}
+
+.hide-enter.hide-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in;
+}
+
+.hide-leave {
+  opacity: 1;
+}
+
+.hide-leave.hide-leave-active {
+  opacity: 0;
+  transition: all 300ms ease-in;
+}
+.progressions{
+  display: flex;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.box {
+  width: 360px;
+  height: auto;
+}
+
+.box div{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+.box div div{
+  margin: 10px;
+    height: 50px;
+    width: 50px;
+    background: #fff;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.box div div span{
+position: absolute;
+font-size: 25px;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+color: #87CABA;
+}
+.box h3{
+  text-align: center;
+    font-size: 30px;
+    margin: 0 auto;
+    opacity: .4;
+}
+.step2 h2{
+  text-align: center;
+  padding: 140px 140px 50px;
+}
+.about{
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  cursor: pointer;
+  font-size: 40px;
+}
+.about:hover{
+  opacity: .7;
+}
+.replay{
+    position: relative;
+    transition: all .5s ease-out;
+    cursor: pointer;
+    left: 50%;
+    font-size: 40px;
+    top: 30px;
+    padding-bottom: 30px;
+}
+.replay svg{
+  transform: translateX(-50%);
+}
+.step2{
+  transition: all .5s ease-out;
+}
+.next{
+    font-size: 50px;
+    transition: all .5s ease-out;
+    position: relative;
+    top: 60px;
+    opacity: .5;
+    cursor: pointer;
+}
+.next:hover{
+opacity: 1;
+}
+.closeTab{
+  position: fixed;
+  background: white;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: .9;
+}
+
+.closeTab  span svg{
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  color : #676767;
+  font-size: 40px;
+  cursor: pointer;
+}
+.closeTab  span svg:hover{
+  opacity: .5;
+  color: #87CABA
+}
+.closeTab  div{
+color: #676767;
+margin: 50px auto;
+text-align: center;
+line-height: 1.7;
+}
+.closeTab  div h3{
+  padding: 100px 200px;
+  font-size: 30px;
+}
+.closeTab  div p{
+  padding: 0 300px;
+}
+@media only screen and (max-width: 600px){
+.chordBox{
+  width:100%;
+
+}
+  .box{
+    margin-top: 20px;
+  }
+
+  .step2 h2{
+    padding: 150px 50px 20px;
+    font-size: 20px;
+  }
+  .step1 h2{
+    padding: 100px 0px 20px;
+    font-size: 20px;
+  }
 }
