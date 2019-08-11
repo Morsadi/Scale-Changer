@@ -36,6 +36,13 @@ class App extends Component{
     ReactGA.pageview('.');
   }
 
+   // Google analytics event tracking
+  eventTrack() {
+    ReactGA.event({
+        category: 'Get Chords',
+        action: 'Received Chords',
+    });
+}
 
 getNotes(){
 
@@ -70,10 +77,7 @@ setTimeout(
   
   )
 
-  ReactGA.event({
-    category: "Fetch Chords",
-    action: "User clicked on Next",
-  })
+  this.eventTrack();
 }
 //add a chord dropdown
 addChord(){
