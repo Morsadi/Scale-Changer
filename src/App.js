@@ -69,6 +69,11 @@ setTimeout(
   }.bind(this), 1000
   
   )
+
+  ReactGA.event({
+    category: "Fetch Chords",
+    action: "User clicked on Next",
+  })
 }
 //add a chord dropdown
 addChord(){
