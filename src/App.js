@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Step2 from './Components/step2';
 import logo from './Assets/logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faMap, faCheckCircle, faInfo} from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheckCircle, faInfo} from '@fortawesome/free-solid-svg-icons';
 import ReactGA from 'react-ga';
 
 
@@ -31,6 +31,10 @@ class App extends Component{
       }
   }
 
+  componentWillMount(){
+    ReactGA.initialize('UA-145382161-1');
+    ReactGA.pageview('.');
+  }
 
 
 getNotes(){
@@ -133,10 +137,6 @@ closeAbout(){
 
 render(){
 
-  function initializeReactGA() {
-    ReactGA.initialize('UA-145382161-1');
-    ReactGA.pageview('/homepage');
-}
   return (
 
 
