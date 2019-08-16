@@ -29,11 +29,8 @@ class App extends Component{
       isAbout: false
 
       }
-  }
-
-  componentWillMount(){
-    ReactGA.initialize('UA-145382161-1');
-    ReactGA.pageview('.');
+      ReactGA.initialize('UA-145382161-1');
+      ReactGA.pageview('.');
   }
 
    // Google analytics event tracking
