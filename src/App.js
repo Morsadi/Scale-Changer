@@ -155,7 +155,7 @@ render(){
   <div className='closeTab'>
   <span onClick={this.closeAbout.bind(this)} className='close'><FontAwesomeIcon icon={faTimes} /></span>  
   <div>
-<h3>This app generates different keys of your favourite song. <br/>All you have to do is grab your intrument, submit the original progression of your song, then you'll receive different variations to find the one that matches your voice. </h3>
+<h3>This app generates different key transpositions of your favourite song. <br/>All you have to do is grab your intsrument, submit the original progression of your song, then you'll receive different transpositions to find the one that matches your voice. </h3>
 <p> <strong>Note:</strong> This app does not account for chord qualities like, minor, major and intervals... <br />If your chords have any quality like 7, 5, 9, aug or maj..., specify only the root chords and then add the qualities to the new chords respectively.</p>
 </div></div>:null
 }
@@ -167,8 +167,7 @@ render(){
     {this.state.display?
     <div style={{ display: this.state.display ,opacity: this.state.step1Opacity, transform: this.state.slide, minHeight: (window.innerHeight - 50)}} className='step1'>
 
-    <h2>Select the main chords<br />that you want to change<br />
-the scale of.</h2>
+    <h2>Select the main chords<br />that you want to transpose</h2>
 
       <div className='chordBox'>
       <ReactCSSTransitionGroup

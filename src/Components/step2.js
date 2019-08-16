@@ -140,7 +140,7 @@ return (
 
 
 <h2>Here are some
-scales to try</h2>
+variations to try</h2>
         <div className='progressions'>
         
         <div className='box' >
