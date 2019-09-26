@@ -1,206 +1,240 @@
 import React, { Component } from 'react';
-import musicalNotes from './musicalNote';
-import Chord from './Components/chord';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Step2 from './Components/step2';
-import logo from './Assets/logo'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faCheckCircle, faInfo} from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimes,
+  faCheckCircle,
+  faInfo,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ReactGA from 'react-ga';
+import Chord from './Components/chord';
+import Step2 from './Components/step2';
+import logo from './Assets/logo';
 
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-class App extends Component{
-
-
-
-  constructor(props){
-    super(props)
-    
-    this.state= {
-    
-    musicalNotes : musicalNotes,
-      chords : [],
-      chordCount:[1, 2],
+    this.state = {
+      chords: [],
+      chordCount: [1, 2],
       step1Opacity: 1,
       display: true,
       slide: 'translatex(0px)',
       hovered: false,
       hoveredNext: false,
-      isAbout: false
-
-      }
-      ReactGA.initialize('UA-145382161-1');
-      ReactGA.pageview('.');
+      isAbout: false,
+    };
+    ReactGA.initialize('UA-145382161-1');
+    ReactGA.pageview('.');
   }
 
-   // Google analytics event tracking
-  eventTrack() {
-    ReactGA.event({
-        category: 'Get Chords',
-        action: 'Received Chords',
-    });
-}
+  getNotes() {
+    // loops through all the chords and stores the checked chords in the state
+    const chordsSelecter = document.getElementsByClassName('select-css');
+    const { chords } = this.state;
 
-getNotes(){
+    for (let i = 0; i < chordsSelecter.length; i += 1) {
+      if (chordsSelecter) {
+        const currentChord = chordsSelecter[i].value;
+        const newList = chords;
+        newList.push(currentChord);
+        this.setState({
+          chords: newList,
+        });
+      }
+    }
 
-//loops through all the chords and stores the checked chords in the state
-let chords = document.getElementsByClassName('select-css');
-for (let i = 0; i < chords.length; i++){
-  if (chords){
-    let currentChord = chords[i].value;
-    let newList = this.state.chords;
-    newList.push(currentChord)
+    // fade out step1
     this.setState({
-      chords: newList
-    })
-  } 
-}
+      step1Opacity: 0,
+      slide: 'translatex(40px)',
+    });
 
-//fade out step1
-this.setState({
-  step1Opacity:0,
-  slide: 'translatex(40px)'
-})
+    setTimeout(() => {
+      this.setState({
+        display: false,
+      });
+    }, 1000);
 
-setTimeout(
-  function showStep2 (){
+    this.eventTrack();
+  }
 
-  this.setState({
-    display: false,
-    step2Opacity: 1,
+  // Google analytics event tracking
+  eventTrack = () => {
+    ReactGA.event({
+      category: 'Get Chords',
+      action: 'Received Chords',
+    });
+  };
 
-  })
-  }.bind(this), 1000
-  
-  )
+  replay = val => {
+    this.setState({
+      display: val,
+      step1Opacity: 1,
+      slide: 'translatex(0px)',
+      chords: [],
+    });
+  };
 
-  this.eventTrack();
-}
-//add a chord dropdown
-addChord(){
- let previousChords = this.state.chordCount;
- let count = previousChords.length +1
- 
- if (this.state.chordCount.length <10){
-  previousChords.push([count, ''])
- }
- this.setState({
-  chordCount: previousChords
-})
+  closeAbout = () => {
+    this.setState({
+      isAbout: false,
+    });
+  };
 
-}
-removeChord(){
-  let previousChords = this.state.chordCount;
+  openAbout() {
+    this.setState({
+      isAbout: true,
+    });
+  }
 
- previousChords.pop()
- this.setState({
-   chordCount: previousChords
- })
-}
+  unhover() {
+    const { hovered } = this.state;
+    this.setState({
+      hovered: !hovered,
+    });
+  }
 
-//hover the about svg
-hover(){
-  this.setState({
-    hovered: !this.state.hovered
-  })
-}
-hoverNext(){
-  this.setState({
-    hoveredNext: !this.state.hoveredNext
-  })
-}
-unhoverNext(){
-  this.setState({
-    hoveredNext: !this.state.hoveredNext
-  })
-}
-unhover(){
-  this.setState({
-    hovered: !this.state.hovered
-  })
-}
-replay(val){
+  unhoverNext() {
+    const { hoveredNext } = this.state;
+    this.setState({
+      hoveredNext: !hoveredNext,
+    });
+  }
 
-  
-  this.setState({
-    display: val,
-    step1Opacity: 1,
-    slide: 'translatex(0px)',
-    chords: [],
-  })
-}
+  hoverNext() {
+    const { hoveredNext } = this.state;
+    this.setState({
+      hoveredNext: !hoveredNext,
+    });
+  }
 
-openAbout(){
-  this.setState({
-    isAbout: true
-  })
-}
-closeAbout(){
-  this.setState({
-    isAbout: false
-  })
-}
+  // hover the about svg
+  hover() {
+    const { hovered } = this.state;
+    this.setState({
+      hovered: !hovered,
+    });
+  }
 
-render(){
+  // add a chord dropdown
+  addChord() {
+    const { chordCount } = this.state;
+    const previousChords = chordCount;
+    const count = previousChords.length + 1;
 
-  return (
-
-
-    <div className="App">
-  {/* this for the about section */}
-  {this.state.isAbout?
-  <div className='closeTab'>
-  <span onClick={this.closeAbout.bind(this)} className='close'><FontAwesomeIcon icon={faTimes} /></span>  
-  <div>
-<h3>This app generates different key transpositions of your favourite song. <br/>All you have to do is grab your intsrument, submit the original progression of your song, then you'll receive different transpositions to find the one that matches your voice. </h3>
-<p> <strong>Note:</strong> This app does not account for chord qualities like, minor, major and intervals... <br />If your chords have any quality like 7, 5, 9, aug or maj..., specify only the root chords and then add the qualities to the new chords respectively.</p>
-</div></div>:null
-}
-          
-
-  <span className='logo'>{logo[0]}</span>
-  <span onClick={this.openAbout.bind(this)} className='about'><FontAwesomeIcon icon={faInfo} /></span>
-
-    {this.state.display?
-    <div style={{ display: this.state.display ,opacity: this.state.step1Opacity, transform: this.state.slide, minHeight: (window.innerHeight - 50)}} className='step1'>
-
-    <h2>Select the main chords<br />that you want to transpose</h2>
-
-      <div className='chordBox'>
-      <ReactCSSTransitionGroup
-      component={React.Fragment} //prevents from grouping the new chords in a span
-          transitionName="fade"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}> 
-    {
-      this.state.chordCount.map((e, index)=>
-      <span key={index}><Chord /></span>
-      )
+    if (chordCount.length < 10) {
+      previousChords.push([count, '']);
     }
-    </ReactCSSTransitionGroup>
-   </div>
-    <input className='addBtn' onClick={this.addChord.bind(this)} type='button' value='+' />
-    <input className='removeBtn' onClick={this.removeChord.bind(this)} type='button' value='-' />
+    this.setState({
+      chordCount: previousChords,
+    });
+  }
 
-    
-    <br/><span onClick={this.getNotes.bind(this)} className='next'><FontAwesomeIcon icon={faCheckCircle} /></span>
-    </div>
-    : <Step2 replay={this.replay.bind(this)} chords={this.state.chords} />
-    }
+  removeChord() {
+    const { chordCount } = this.state;
+    const previousChords = chordCount;
 
+    previousChords.pop();
+    this.setState({
+      chordCount: previousChords,
+    });
+  }
 
+  render() {
+    const {
+      isAbout,
+      display,
+      step1Opacity,
+      slide,
+      chordCount,
+      chords,
+    } = this.state;
 
+    return (
+      <div className="App">
+        {/* this for the about section */}
+        {isAbout ? (
+          <div className="closeTab">
+            <span onClick={this.closeAbout} className="close">
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+            <div>
+              <h3>
+                This app generates different key transpositions of your
+                favourite song.
+                <br />
+                All you have to do is grab your intsrument, submit the original
+                progression of your song, then you
+                {"'"}
+                ll receive different transpositions to find the one that matches
+                your voice.
+              </h3>
+              <p>
+                <strong>Note:</strong>
+                This app does not account for chord qualities like, minor, major
+                and intervals...
+                <br />
+                If your chords have any quality like 7, 5, 9, aug or maj...,
+                specify only the root chords and then add the qualities to the
+                new chords respectively.
+              </p>
+            </div>
+          </div>
+        ) : null}
 
+        <span className="logo">{logo[0]}</span>
+        <span onClick={this.openAbout.bind(this)} className="about">
+          <FontAwesomeIcon icon={faInfo} />
+        </span>
 
+        {display ? (
+          <div
+            style={{
+              display,
+              opacity: step1Opacity,
+              transform: slide,
+              minHeight: window.innerHeight - 50,
+            }}
+            className="step1"
+          >
+            <h2>
+              Select the main chords
+              <br />
+              that you want to transpose
+            </h2>
 
-   </div>
-  )
+            <div className="chordBox">
+              {chordCount.map((e, index) => (
+                <span key={index}>
+                  <Chord />
+                </span>
+              ))}
+            </div>
+            <input
+              className="addBtn"
+              onClick={this.addChord.bind(this)}
+              type="button"
+              value="+"
+            />
+            <input
+              className="removeBtn"
+              onClick={this.removeChord.bind(this)}
+              type="button"
+              value="-"
+            />
+
+            <br />
+            <span onClick={this.getNotes.bind(this)} className="next">
+              <FontAwesomeIcon icon={faCheckCircle} />
+            </span>
+          </div>
+        ) : (
+          <Step2 replay={this.replay} chords={chords} />
+        )}
+      </div>
+    );
+  }
 }
-
-
-
-}
-
-
 
 export default App;

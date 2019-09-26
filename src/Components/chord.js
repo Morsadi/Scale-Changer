@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Chord extends Component{
-
-  render(){
-    return (
-  <div>
-
-<select className="select-css">
+export default function Chord() {
+  return (
+    <div>
+      <select className="select-css">
         <option>C</option>
         <option>C#</option>
         <option>D</option>
@@ -19,14 +16,7 @@ class Chord extends Component{
         <option>A</option>
         <option>A#</option>
         <option>B</option>
-
       </select>
-  </div>
-        )
-    }
+    </div>
+  );
 }
-    
-    
-    
-    export default Chord;
-      
