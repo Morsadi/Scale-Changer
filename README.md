@@ -5,5 +5,5 @@ All vocalists know that practicing scales challenges and expands the vocal range
   <img width="600" src="https://i.ibb.co/jZRhS8z/scaler-Snap.png">
 </p>
 <p align="center">
-Live Preview: https://scaler.netlify.com.
+Live Preview: https://scaler.netlify.com
 </p>
